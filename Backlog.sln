@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.2.32616.157
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Backlog.Cli", "Backlog.Cli\Backlog.Cli.csproj", "{36015786-749C-430B-B05D-E830A171B699}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Backlog.Api", "Backlog.Api\Backlog.Api.csproj", "{705ED1B3-BDC4-425F-B609-0FED89F92062}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{36015786-749C-430B-B05D-E830A171B699}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{36015786-749C-430B-B05D-E830A171B699}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{36015786-749C-430B-B05D-E830A171B699}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{36015786-749C-430B-B05D-E830A171B699}.Release|Any CPU.Build.0 = Release|Any CPU
+		{705ED1B3-BDC4-425F-B609-0FED89F92062}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{705ED1B3-BDC4-425F-B609-0FED89F92062}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{705ED1B3-BDC4-425F-B609-0FED89F92062}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{705ED1B3-BDC4-425F-B609-0FED89F92062}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {0ECDBC0D-3D89-4E55-911F-9BF8B53B2CB4}
+	EndGlobalSection
+EndGlobal
