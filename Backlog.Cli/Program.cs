@@ -3,6 +3,7 @@ using Backlog.Cli.Commands;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using NLog.Extensions.Logging;
+using System.Reflection;
 
 namespace Backlog.Cli;
 
@@ -13,6 +14,7 @@ public class Program
         await ConsoleApp.CreateBuilder(args)
             .ConfigureAppConfiguration((_, configure) =>
             {
+                configure.SetBasePath(GetConfigFileDirectoryPath());
                 configure.AddUserSecrets<Program>();
             })
             .ConfigureLogging((hostContext, logging) =>
@@ -29,6 +31,13 @@ public class Program
             })
             .Build()
             .AddCommands<IssueCommands>()
+            .AddCommands<PullRequestCommands>()
             .RunAsync();
+    }
+
+    private static string GetConfigFileDirectoryPath()
+    {
+        var location = Assembly.GetExecutingAssembly().Location;
+        return Path.GetDirectoryName(location) ?? Environment.CurrentDirectory;
     }
 }
