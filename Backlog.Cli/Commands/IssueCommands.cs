@@ -20,22 +20,23 @@ public class IssueCommands : ConsoleAppBase
     public async Task GetIssueTitle([Option("i", "input file path")] string inputFilePath,
         CancellationToken cancellationToken = default)
     {
-        IEnumerable<string> GetLines(StreamReader reader)
+        if (!File.Exists(inputFilePath))
         {
-            while (!reader.EndOfStream) yield return reader.ReadLine() ?? throw new Exception();
+            throw new FileNotFoundException("Specified file not found.", inputFilePath);
         }
 
-        try
+        IEnumerable<string> GetLines(StreamReader reader)
         {
-            using var inputFile = new StreamReader(inputFilePath);
-            var issueIds = GetLines(inputFile).ToArray();
-            await GetIssueTitle(issueIds, cancellationToken);
+            while (!reader.EndOfStream)
+            {
+                yield return reader.ReadLine() ?? throw new Exception();
+            }
         }
-        catch (Exception ex)
-        {
-            // TODO : NLogのプラクティスに合わせて修正する
-            _logger.LogError(ex.ToString());
-        }
+
+        using StreamReader? inputFile = new(inputFilePath);
+        var issueIds = GetLines(inputFile).ToArray();
+
+        await GetIssueTitle(issueIds, cancellationToken);
     }
 
     [Command("get-title")]
@@ -44,18 +45,12 @@ public class IssueCommands : ConsoleAppBase
         foreach (var issueId in issueIds)
         {
             cancellationToken.ThrowIfCancellationRequested();
-            try
-            {
-                var response = await _backlogClient.GetIssueAsync(issueId, cancellationToken);
-                var summary = (string)response.summary;
 
-                Console.WriteLine($"{issueId} {summary}");
-            }
-            catch (Exception ex)
-            {
-                // TODO : NLogのプラクティスに合わせて修正する
-                _logger.LogError(ex.ToString());
-            }
+            _logger.LogInformation("get Issue info in {issueId}", issueId);
+            var response = await _backlogClient.GetIssueAsync(issueId, cancellationToken);
+            var summary = (string)response.summary;
+
+            Console.WriteLine($"{issueId} {summary}");
         }
     }
 }
