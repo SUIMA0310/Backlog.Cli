@@ -18,6 +18,11 @@ public partial class BacklogClient : IDisposable
 
     public BacklogClient(BacklogClientOptions options)
     {
+        if (string.IsNullOrEmpty(options.ApiKey))
+        {
+            throw new ArgumentException("ApiKey is not configured.");
+        }
+
         _readRequestLimiter = new FixedWindowRateLimiter(
             new FixedWindowRateLimiterOptions(
                 options.ReadRateLimitCount,
